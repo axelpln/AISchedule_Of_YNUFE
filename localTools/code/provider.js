@@ -46,22 +46,7 @@ async function scheduleHtmlProvider(
     return html
   } catch (e) {
     console.error(e)
-    await AIScheduleAlert('这是一条提示信息')
-    // Prompt的参数比较多，所以传了个对象，最后会返回用户输入的值
-    const userInput = await AISchedulePrompt({
-      titleText: '提示', // 标题内容，字体比较大，超过10个字不给显示的喔，也可以不传就不显示
-      tipText: '这是一条提示信息', // 提示信息，字体稍小，支持使用``达到换行效果，具体使用效果建议真机测试，也可以不传就不显示
-      defaultText: '默认内容', // 文字输入框的默认内容，不传会显示版本号，所以空内容要传个''
-      validator: value => { // 校验函数，如果结果不符预期就返回字符串，会显示在屏幕上，符合就返回false
-        console.log(value)
-        if (value === '1') return '这里的结果不可以是1'
-        return false
-  }})
-
-    let html = request('get', '/jsxsd/xskb/xskb_list.do', null)
-    dom = new DOMParser().parseFromString(html, 'text/html')
-    return dom.getElementById('kbtable')
-      ? dom.getElementById('kbtable').outerHTML
-      : dom.getElementsByClassName('content_box')[0].outerHTML
+    await AIScheduleAlert('未找到课表！请检查是否已打开课表界面后再点击导入！')
+    return 'do not continue'
   }
 }
